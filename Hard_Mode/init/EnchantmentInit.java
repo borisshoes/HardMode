@@ -38,12 +38,15 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod.EventBusSubscriber(modid=References.MODID)
+@Mod.EventBusSubscriber(modid = References.MODID)
 public class EnchantmentInit {
 	public static final List<Enchantment> ENCHANTMENTS = new ArrayList<Enchantment>();
 	
@@ -54,6 +57,7 @@ public class EnchantmentInit {
 	public static final Enchantment ROCKET_BOOTS = new EnchantmentRocketBoots();
 	public static final Enchantment SATANIC_WILL = new EnchantmentSatainicWill();
 	public static final Enchantment RECKLESS = new EnnchantmentReckless();
+	
 	
 	@SubscribeEvent
 	public static void livingUpdateFunction(LivingUpdateEvent event) {
@@ -68,44 +72,52 @@ public class EnchantmentInit {
 		}
 		
 		
+		
 		int levelRktBoots = EnchantmentHelper.getMaxEnchantmentLevel(ROCKET_BOOTS, living);//Rocket Boots
-		boolean jump = Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown();
-		if(levelRktBoots == 1) {
-			if(jump && !living.onGround) {
-				Random rand = new Random();
+		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			boolean jump = Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown();
+			if(levelRktBoots == 1) {
+				if(jump && !living.onGround) {
+					Random rand = new Random();
 				
-				living.onGround = false;
-				if(living.motionY <= 1) {
-					living.addVelocity(0, 0.1, 0);
+					living.onGround = false;
+					if(living.motionY <= 1) {
+						living.addVelocity(0, 0.1, 0);
+					}
+				
+					double xMot = (rand.nextDouble()*2-1)/25;
+					double yMot = (rand.nextDouble()*2-1)/25;
+					double zMot = (rand.nextDouble()*2-1)/25;
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, living.posX, living.posY, living.posZ, xMot, yMot, zMot, new int[0]);
+					for(int i = 0; i < 5; i++) {
+						xMot = (rand.nextDouble()*2-1)/15;
+						yMot = (rand.nextDouble()*2-1)/15;
+						zMot = (rand.nextDouble()*2-1)/15;
+						world.spawnParticle(EnumParticleTypes.FLAME, living.posX, living.posY, living.posZ, xMot, yMot, zMot, new int[0]);
+					}
+				
+					int chance = rand.nextInt(40);
+					if(chance == 1){
+						living.getItemStackFromSlot(EntityEquipmentSlot.FEET).damageItem(1, living);
+					}
 				}
 				
-				double xMot = (rand.nextDouble()*2-1)/25;
-				double yMot = (rand.nextDouble()*2-1)/25;
-				double zMot = (rand.nextDouble()*2-1)/25;
-				world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, living.posX, living.posY, living.posZ, xMot, yMot, zMot, new int[0]);
-				for(int i = 0; i < 5; i++) {
-					xMot = (rand.nextDouble()*2-1)/15;
-					yMot = (rand.nextDouble()*2-1)/15;
-					zMot = (rand.nextDouble()*2-1)/15;
-					world.spawnParticle(EnumParticleTypes.FLAME, living.posX, living.posY, living.posZ, xMot, yMot, zMot, new int[0]);
-				}
-				
-				int chance = rand.nextInt(40);
-				if(chance == 1){
-					living.getItemStackFromSlot(EntityEquipmentSlot.FEET).damageItem(1, living);
-				}
 			}
+		}
+		if(levelRktBoots == 1) {
 			living.fallDistance = 0.1F;
 		}
+		
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public static void keyPressEvent(KeyInputEvent event) {
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
 		BlockPos pos = player.getPosition();
 		World world = player.world;		
 		
-		
+		//player.fallDistance = 0.1F;
 	}
 	
 	@SubscribeEvent
