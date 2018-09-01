@@ -6,6 +6,8 @@ import java.util.List;
 import Hard_Mode.objects.armor.ArmorBase;
 import Hard_Mode.objects.items.ItemBase;
 import Hard_Mode.objects.items.crops.ItemScorchweedSeeds;
+import Hard_Mode.objects.items.guis.dirtybag.ItemDirtyBag;
+import Hard_Mode.objects.items.guis.infernobox.ItemInfernoBox;
 import Hard_Mode.objects.tools.ToolAxe;
 import Hard_Mode.objects.tools.ToolHoe;
 import Hard_Mode.objects.tools.ToolPickaxe;
@@ -28,8 +30,8 @@ public class ItemInit {
 	public static final Item FORBIDDEN_BOOK = new ItemBase("forbidden_book");
 	public static final Item INFUSED_QUARTZ = new ItemBase("infused_quartz");
 	
-	public static final Item DIRTY_BAG = new ItemBase("dirty_bag");
-	public static final Item INFERNO_BOX = new ItemBase("inferno_box");
+	public static final Item DIRTY_BAG = new ItemDirtyBag("dirty_bag");
+	public static final Item INFERNO_BOX = new ItemInfernoBox("inferno_box");
 	public static final Item TINKER_TOOL = new ItemBase("tinker_tool");
 	
 	public static final Item RUNIC_ROD = new ItemBase("runic_rod");

@@ -5,12 +5,17 @@ import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.BiomeDesert;
+import net.minecraft.world.biome.BiomeForest;
+import net.minecraft.world.biome.BiomeJungle;
 import net.minecraft.world.biome.BiomePlains;
+import net.minecraft.world.biome.BiomeSavanna;
+import net.minecraft.world.biome.BiomeSnow;
+import net.minecraft.world.biome.BiomeTaiga;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -28,23 +33,31 @@ public class WorldGenCustomStructures implements IWorldGenerator{
 		case 1:
 			break;
 		case 0:
-			generateStructure(new WorldGenStructure("dimensional_dungeon_end"), world, random, chunkX, chunkZ, 200, Blocks.STONE, BiomePlains.class);
-			generateStructure(new WorldGenStructure("dimensional_dungeon_overworld"), world, random, chunkX, chunkZ, 200, Blocks.STONE, BiomePlains.class);
-			generateStructure(new WorldGenStructure("dimensional_dungeon_nether"), world, random, chunkX, chunkZ, 200, Blocks.STONE, BiomePlains.class);
+			ArrayList<Class<?>> biomes = new ArrayList();
+			biomes.add(BiomePlains.class);
+			biomes.add(BiomeTaiga.class);
+			biomes.add(BiomeForest.class);
+			biomes.add(BiomeDesert.class);
+			biomes.add(BiomeJungle.class);
+			biomes.add(BiomeSavanna.class);
+			biomes.add(BiomeSnow.class);
+			generateStructure(new WorldGenStructure("dimensional_dungeon_end"), world, random, chunkX, chunkZ, 4000, Blocks.STONE, biomes, 30);
+			generateStructure(new WorldGenStructure("dimensional_dungeon_overworld"), world, random, chunkX, chunkZ, 4000, Blocks.STONE, biomes, 0);
+			generateStructure(new WorldGenStructure("dimensional_dungeon_nether"), world, random, chunkX, chunkZ, 4000, Blocks.STONE, biomes, -10);
 			break;
 		case -1:
 			break;
 		}	
 	}
 	
-	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Block topBlock, Class<?>...classes) {
+	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Block topBlock, ArrayList<Class<?>> classes, int adjustment) {
 		
-		ArrayList<Class<?>> classesList = new ArrayList<Class<?>>(Arrays.asList(classes));
+		ArrayList<Class<?>> classesList = classes;
 		
 		int x = (chunkX * 16) + random.nextInt(15);
 		int z = (chunkZ * 16) + random.nextInt(15);
 		int y = calculateGenerationHeight(world, x, z, topBlock);
-		y-=20;
+		y+=adjustment;
 		BlockPos pos = new BlockPos(x,y,z);
 		
 		Class<?> biome = world.provider.getBiomeForCoords(pos).getClass();

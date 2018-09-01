@@ -373,6 +373,7 @@ public class TileEntityHellfireFurnace extends TileEntity implements IInventory,
 			break;
 		case 4:
 			this.boostTime = value;
+			break;
 		case 5:
 			this.totalBoostTime = value;
 			break;

@@ -2,11 +2,13 @@ package Hard_Mode.util.handelers;
 
 import Hard_Mode.HardMode;
 import Hard_Mode.init.BlockInit;
+import Hard_Mode.init.EnchantmentInit;
 import Hard_Mode.init.ItemInit;
 import Hard_Mode.util.IHasModel;
 import Hard_Mode.world.gen.WorldGenCustomOres;
 import Hard_Mode.world.gen.WorldGenCustomStructures;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -30,6 +32,11 @@ public class RegistryHandler {
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(BlockInit.BLOCKS.toArray(new Block[0]));
 		TileEntityHandler.registerTileEntities();
+	}
+	
+	@SubscribeEvent
+	public static void onEnchantmentRegister(RegistryEvent.Register<Enchantment> event) {
+		event.getRegistry().registerAll(EnchantmentInit.ENCHANTMENTS.toArray(new Enchantment[0]));
 	}
 	
 	@SubscribeEvent

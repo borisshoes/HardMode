@@ -12,6 +12,7 @@ import Hard_Mode.init.ItemInit;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 
 public class HellfireFurnaceRecipes {
 	private static final HellfireFurnaceRecipes INSTANCE = new HellfireFurnaceRecipes();
@@ -25,19 +26,16 @@ public class HellfireFurnaceRecipes {
 	private HellfireFurnaceRecipes() {
 	  //addHellfireRecipe(new ItemStack(), new ItemStack(), new ItemStack(), 5.0F);
 		addHellfireRecipe(new ItemStack(ItemInit.SCORCHWEED_ITEM), new ItemStack(ItemInit.SCORCHWEED_ITEM), new ItemStack(ItemInit.FORBIDDEN_INK, 4), 5.0F);
-		addHellfireRecipe(new ItemStack(Blocks.COAL_ORE), new ItemStack(Blocks.COAL_ORE), new ItemStack(Items.COAL, 4), 5.0F);
-		addHellfireRecipe(new ItemStack(Blocks.DIAMOND_ORE), new ItemStack(Blocks.DIAMOND_ORE), new ItemStack(Items.DIAMOND, 4), 5.0F);
-		addHellfireRecipe(new ItemStack(Blocks.GOLD_ORE), new ItemStack(Blocks.GOLD_ORE), new ItemStack(Items.GOLD_INGOT, 4), 5.0F);
-		addHellfireRecipe(new ItemStack(Blocks.IRON_ORE), new ItemStack(Blocks.IRON_ORE), new ItemStack(Items.IRON_INGOT, 4), 5.0F);
-		addHellfireRecipe(new ItemStack(Blocks.EMERALD_ORE), new ItemStack(Blocks.EMERALD_ORE), new ItemStack(Items.EMERALD, 4), 5.0F);
 		addHellfireRecipe(new ItemStack(Blocks.REDSTONE_ORE), new ItemStack(Blocks.REDSTONE_ORE), new ItemStack(Items.REDSTONE, 16), 5.0F);
 		addHellfireRecipe(new ItemStack(Blocks.LAPIS_ORE), new ItemStack(Blocks.LAPIS_ORE), new ItemStack(Items.DYE, 16, 4), 5.0F);
+		addHellfireRecipe(new ItemStack(Blocks.QUARTZ_ORE), new ItemStack(Blocks.QUARTZ_ORE), new ItemStack(Items.QUARTZ, 8), 5.0F);
+		
 		addHellfireRecipe(new ItemStack(BlockInit.ORE_RUNIC), new ItemStack(BlockInit.ORE_RUNIC), new ItemStack(ItemInit.RUNIC_GEMSTONE, 4), 5.0F);
 		addHellfireRecipe(new ItemStack(BlockInit.ORE_HELLCRYSTAL), new ItemStack(BlockInit.ORE_HELLCRYSTAL), new ItemStack(ItemInit.HELLCRYSTAL, 4), 5.0F);
 		addHellfireRecipe(new ItemStack(BlockInit.ORE_INFINITY), new ItemStack(BlockInit.ORE_INFINITY), new ItemStack(ItemInit.DUST_VIOLENT, 8), 5.0F);
 		
-		addHellfireRecipe(new ItemStack(ItemInit.FORBIDDEN_INK), new ItemStack(Items.QUARTZ), new ItemStack(ItemInit.INFUSED_QUARTZ), 5.0F);
-		addHellfireRecipe(new ItemStack(Items.QUARTZ), new ItemStack(ItemInit.FORBIDDEN_INK), new ItemStack(ItemInit.INFUSED_QUARTZ), 5.0F);
+		addHellfireRecipe(new ItemStack(ItemInit.FORBIDDEN_INK), new ItemStack(Items.QUARTZ), new ItemStack(ItemInit.INFUSED_QUARTZ, 2), 5.0F);
+		addHellfireRecipe(new ItemStack(Items.QUARTZ), new ItemStack(ItemInit.FORBIDDEN_INK), new ItemStack(ItemInit.INFUSED_QUARTZ, 2), 5.0F);
 		
 		addHellfireRecipe(new ItemStack(ItemInit.INFUSED_QUARTZ), new ItemStack(Blocks.OBSIDIAN), new ItemStack(BlockInit.INFUSED_OBSIDIAN), 5.0F);
 		addHellfireRecipe(new ItemStack(Blocks.OBSIDIAN), new ItemStack(ItemInit.INFUSED_QUARTZ), new ItemStack(BlockInit.INFUSED_OBSIDIAN), 5.0F);
@@ -50,6 +48,18 @@ public class HellfireFurnaceRecipes {
 		
 		addHellfireRecipe(new ItemStack(Blocks.STONEBRICK), new ItemStack(Blocks.STONE), new ItemStack(BlockInit.TERRAN_BRICK, 4), 5.0F);
 		addHellfireRecipe(new ItemStack(Blocks.STONE), new ItemStack(Blocks.STONEBRICK), new ItemStack(BlockInit.TERRAN_BRICK, 4), 5.0F);
+		
+		Map<ItemStack, ItemStack> normalRecipes = FurnaceRecipes.instance().getSmeltingList();
+		
+		for(Map.Entry<ItemStack, ItemStack> entry : normalRecipes.entrySet()) {
+			if(getHellfireResult(entry.getKey(), entry.getKey()) != ItemStack.EMPTY && getHellfireResult(entry.getKey(), entry.getKey()) != new ItemStack(Blocks.AIR)) {
+			}else {
+				if(entry.getValue().getMaxStackSize() >= entry.getValue().getCount() * 4) {
+					addHellfireRecipe(entry.getKey(), entry.getKey(), new ItemStack(entry.getValue().getItem(), entry.getValue().getCount() * 4, entry.getValue().getMetadata()), FurnaceRecipes.instance().getSmeltingExperience(entry.getKey()));
+				}
+			}
+		}
+		
 	}
 
 	

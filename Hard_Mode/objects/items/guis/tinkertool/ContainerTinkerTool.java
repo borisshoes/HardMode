@@ -17,6 +17,7 @@ public class ContainerTinkerTool extends Container{
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult = new InventoryCraftResult();
     private World worldObj;
+    
     public ContainerTinkerTool(InventoryPlayer par1InventoryPlayer, World par2World, int par3, int par4, int par5)
     {
         this.worldObj = par2World;
@@ -75,10 +76,11 @@ public class ContainerTinkerTool extends Container{
     /**
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
     {
-        ItemStack itemstack = ItemStack.EMPTY;
-        /*Slot slot = (Slot)this.inventorySlots.get(par2);
+        /*ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(par2);
         if (slot != null && slot.getHasStack())
         {
             ItemStack itemstack1 = slot.getStack();
@@ -123,6 +125,7 @@ public class ContainerTinkerTool extends Container{
             }
             slot.onTake(par1EntityPlayer, itemstack1);
         }*/
+    	ItemStack itemstack = ItemStack.EMPTY;
         return itemstack;
     }
     /*public boolean func_94530_a(ItemStack par1ItemStack, Slot par2Slot)

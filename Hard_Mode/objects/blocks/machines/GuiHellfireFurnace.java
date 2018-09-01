@@ -25,9 +25,15 @@ public class GuiHellfireFurnace extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String tileName = this.tileentity.getDisplayName().getUnformattedText();
 		this.fontRenderer.drawString(tileName, (this.xSize / 2 - this.fontRenderer.getStringWidth(tileName) / 2) + 3, 4, 4210752);
-		//this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 122, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
 		
 	}
+	
+	public void drawScreen(int mouseX, int mouseY, float partialTicks){
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
