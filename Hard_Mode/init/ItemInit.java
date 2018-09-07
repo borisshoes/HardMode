@@ -82,13 +82,13 @@ public class ItemInit {
 
 	
 	//Tools
-	public static final Item HELLCRYSTAL_AXE = new ToolAxe("hellcrystal_axe", TOOL_HELLCRYSTAL, 6.0F, 1.0F);
+	public static final Item HELLCRYSTAL_AXE = new ToolAxe("hellcrystal_axe", TOOL_HELLCRYSTAL, 9.0F, -3.0F);
 	public static final Item HELLCRYSTAL_PICKAXE = new ToolPickaxe("hellcrystal_pickaxe", TOOL_HELLCRYSTAL);
 	public static final Item HELLCRYSTAL_SHOVEL = new ToolShovel("hellcrystal_shovel", TOOL_HELLCRYSTAL);
 	public static final Item HELLCRYSTAL_HOE = new ToolHoe("hellcrystal_hoe", TOOL_HELLCRYSTAL);
 	public static final Item HELLCRYSTAL_SWORD = new ToolSword("hellcrystal_sword", TOOL_HELLCRYSTAL);
 	
-	public static final Item RUNIC_AXE = new ToolAxe("runic_axe", TOOL_RUNIC, 3.0F, 2.0F);
+	public static final Item RUNIC_AXE = new ToolAxe("runic_axe", TOOL_RUNIC, 8.0F, -3.0F);
 	public static final Item RUNIC_PICKAXE = new ToolPickaxe("runic_pickaxe", TOOL_RUNIC);
 	public static final Item RUNIC_SHOVEL = new ToolShovel("runic_shovel", TOOL_RUNIC);
 	public static final Item RUNIC_HOE = new ToolHoe("runic_hoe", TOOL_RUNIC);

@@ -34,6 +34,7 @@ public class BlockHellfireFurnace extends BlockBase implements ITileEntityProvid
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool BURNING = PropertyBool.create("burning");
 	
+	
 	public BlockHellfireFurnace(String name, Material material, float hardness, float resistance, int harvestLvl, String harvestClass, SoundType sound) {
 		super(name, material, hardness, resistance, harvestLvl, harvestClass, sound);
 		
@@ -81,8 +82,14 @@ public class BlockHellfireFurnace extends BlockBase implements ITileEntityProvid
 		IBlockState state = worldIn.getBlockState(pos);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		
-		if(active) worldIn.setBlockState(pos, BlockInit.HELLFIRE_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true),3);
-		else worldIn.setBlockState(pos, BlockInit.HELLFIRE_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false),3);
+		if(active) {
+			worldIn.setBlockState(pos, BlockInit.HELLFIRE_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true),3);
+			worldIn.setBlockState(pos, BlockInit.HELLFIRE_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true),3);
+		}else {
+			worldIn.setBlockState(pos, BlockInit.HELLFIRE_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false),3);
+			worldIn.setBlockState(pos, BlockInit.HELLFIRE_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false),3);
+		} 
+		
 		
 		if(tileentity != null){
 			tileentity.validate();

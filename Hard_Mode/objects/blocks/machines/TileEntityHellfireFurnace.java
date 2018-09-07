@@ -3,11 +3,13 @@ package Hard_Mode.objects.blocks.machines;
 import Hard_Mode.init.ItemInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -27,10 +29,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityHellfireFurnace extends TileEntity implements IInventory, ITickable{
+public class TileEntityHellfireFurnace extends TileEntity implements IInventory, ITickable, ISidedInventory{
 	private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
 	private String customName;
 	
+	private static final int[] SLOTS_TOP = new int[] {0, 1};
+    private static final int[] SLOTS_BOTTOM = new int[] {3};
+    private static final int[] SLOTS_SIDES = new int[] {2, 4};
+    
 	private int burnTime;
 	private int currentBurnTime;
 	private int cookTime;
@@ -330,6 +336,23 @@ public class TileEntityHellfireFurnace extends TileEntity implements IInventory,
 			return isItemFuel(stack);
 		}
 	}
+	
+	public int[] getSlotsForFace(EnumFacing side){
+        if (side == EnumFacing.DOWN){
+            return SLOTS_BOTTOM;
+        }
+        else{
+            return side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES;
+        }
+    }
+	
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction){
+        return this.isItemValidForSlot(index, itemStackIn);
+    }
+	
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction){
+        return true;
+    }
 	
 	public String getGuiID() {
 		return "hm:hellfire_furnace";

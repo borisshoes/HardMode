@@ -18,6 +18,7 @@ public class InventoryMaterialAmulet extends InventoryBasic implements IInventor
 	private final ItemStack stack;
 	private ArrayList<ItemStack> exchange;
 	private ItemStack exchangeItem = new ItemStack(Blocks.AIR);
+	private int exchangeItemCount = exchangeItem.getCount();
 	private boolean filling = false;
 
 	public InventoryMaterialAmulet(ItemStack stack) {
@@ -29,16 +30,18 @@ public class InventoryMaterialAmulet extends InventoryBasic implements IInventor
 
 	@Override
 	public void onInventoryChanged(IInventory invBasic) {
-		if(!exchangeItem.isItemEqual(this.getStackInSlot(0)) && !this.getStackInSlot(0).isEmpty()) {
+		if(!this.getStackInSlot(0).isEmpty() && !exchangeItem.isItemEqual(this.getStackInSlot(0)) || (exchangeItem.isItemEqual(this.getStackInSlot(0)) && exchangeItemCount != this.getStackInSlot(0).getCount())) {
 			exchangeItem = this.getStackInSlot(0);
-			
+			exchangeItemCount = exchangeItem.getCount();
+				
 			exchange = MaterialAmuletRecipes.getInstance().getListFromItem(exchangeItem);
-		
+			
 			filling = true;
 			updateDisplay();
-			
 		}else if(this.getStackInSlot(0).isEmpty()) {
 			this.clear();
+			exchange = null;
+			exchangeItem = new ItemStack(Blocks.AIR);
 		}else if(!this.getStackInSlot(0).isEmpty() && !filling){
 			exchangeItem = this.getStackInSlot(0);
 			exchange = MaterialAmuletRecipes.getInstance().getListFromItem(exchangeItem);
@@ -54,10 +57,24 @@ public class InventoryMaterialAmulet extends InventoryBasic implements IInventor
 					count++;
 				}
 			}
-			//System.out.println(count +" "+ size);
+			System.out.println(count +" "+ size);
 			if(count > 24 - size) {
-				//System.out.println("clearing");
+				System.out.println("clearing");
 				this.clear();
+				exchange = null;
+				exchangeItem = new ItemStack(Blocks.AIR);
+			}
+		}
+		
+		if(!this.getStackInSlot(0).isEmpty()) {
+			int j = this.getStackInSlot(0).getCount();
+			for(int i = 1; i < 25; i++) {
+				ItemStack stack = this.getStackInSlot(i);
+				if(!stack.isEmpty()) {
+					if(stack.getCount() < j) {
+						this.getStackInSlot(0).setCount(stack.getCount());
+					}
+				}
 			}
 		}
 		
@@ -80,6 +97,10 @@ public class InventoryMaterialAmulet extends InventoryBasic implements IInventor
 			}
 			filling = false;
 			for(int j = i; j < 25; j++) {
+				this.setInventorySlotContents(j, new ItemStack(Blocks.AIR));
+			}
+		}else if(exchange == null){
+			for(int j = 1; j < 25; j++) {
 				this.setInventorySlotContents(j, new ItemStack(Blocks.AIR));
 			}
 		}

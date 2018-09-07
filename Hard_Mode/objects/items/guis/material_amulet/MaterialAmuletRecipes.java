@@ -66,11 +66,11 @@ public class MaterialAmuletRecipes {
 														   new ItemStack(Items.RECORD_WAIT),
 														   new ItemStack(Items.RECORD_WARD))));
 		
-		this.addAmuletRecipe(new ArrayList<>(Arrays.asList(new ItemStack(Blocks.SKULL, 1, 0),
-														   new ItemStack(Blocks.SKULL, 1, 1),
-														   new ItemStack(Blocks.SKULL, 1, 2),
-														   new ItemStack(Blocks.SKULL, 1, 3),
-														   new ItemStack(Blocks.SKULL, 1, 4))));
+		this.addAmuletRecipe(new ArrayList<>(Arrays.asList(new ItemStack(Items.SKULL, 1, 0),
+														   new ItemStack(Items.SKULL, 1, 1),
+														   new ItemStack(Items.SKULL, 1, 2),
+														   new ItemStack(Items.SKULL, 1, 3),
+														   new ItemStack(Items.SKULL, 1, 4))));
 		
 		this.addAmuletRecipe(new ArrayList<>(Arrays.asList(new ItemStack(Blocks.TALLGRASS, 1, 1),
 														   new ItemStack(Blocks.TALLGRASS, 1, 2),
@@ -95,6 +95,21 @@ public class MaterialAmuletRecipes {
 														   new ItemStack(Blocks.DOUBLE_PLANT, 1, 3),
 														   new ItemStack(Blocks.DOUBLE_PLANT, 1, 4),
 														   new ItemStack(Blocks.DOUBLE_PLANT, 1, 5))));
+		
+		this.addAmuletRecipe(new ArrayList<>(Arrays.asList(new ItemStack(Blocks.BRICK_BLOCK),
+														   new ItemStack(Blocks.STONEBRICK, 1, 0),
+														   new ItemStack(Blocks.STONEBRICK, 1, 1),
+														   new ItemStack(Blocks.STONEBRICK, 1, 2),
+														   new ItemStack(Blocks.STONEBRICK, 1, 3),
+														   new ItemStack(Blocks.STONE, 1, 2),
+														   new ItemStack(Blocks.STONE, 1, 4),
+														   new ItemStack(Blocks.STONE, 1, 6),
+														   new ItemStack(Blocks.SANDSTONE, 1, 0),
+														   new ItemStack(Blocks.SANDSTONE, 1, 1),
+														   new ItemStack(Blocks.SANDSTONE, 1, 2),
+														   new ItemStack(Blocks.RED_SANDSTONE, 1, 0),
+														   new ItemStack(Blocks.RED_SANDSTONE, 1, 1),
+														   new ItemStack(Blocks.RED_SANDSTONE, 1, 2))));
 		
 		//--Colored items--
 		ArrayList<ItemStack> wool = new ArrayList<>();
