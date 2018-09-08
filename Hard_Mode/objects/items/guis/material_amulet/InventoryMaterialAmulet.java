@@ -57,27 +57,33 @@ public class InventoryMaterialAmulet extends InventoryBasic implements IInventor
 					count++;
 				}
 			}
-			System.out.println(count +" "+ size);
+			//System.out.println(count +" "+ size);
 			if(count > 24 - size) {
-				System.out.println("clearing");
+				//System.out.println("clearing");
 				this.clear();
 				exchange = null;
 				exchangeItem = new ItemStack(Blocks.AIR);
 			}
 		}
 		
-		if(!this.getStackInSlot(0).isEmpty()) {
+		if(!this.getStackInSlot(0).isEmpty() && !filling) {
 			int j = this.getStackInSlot(0).getCount();
+			int discrepency = 0;
+			int lowestCount = 0;
 			for(int i = 1; i < 25; i++) {
 				ItemStack stack = this.getStackInSlot(i);
 				if(!stack.isEmpty()) {
 					if(stack.getCount() < j) {
-						this.getStackInSlot(0).setCount(stack.getCount());
+						discrepency++;
+						lowestCount = stack.getCount();
 					}
 				}
 			}
-		}
-		
+			//System.out.println(lowestCount + " " + discrepency);
+			if(discrepency == 1) {
+				this.getStackInSlot(0).setCount(lowestCount);
+			}
+		}		
 	}
 	
 	private void updateDisplay() {

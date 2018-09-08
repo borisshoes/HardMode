@@ -1,5 +1,6 @@
 package Hard_Mode.objects.items.guis.dirtybag;
 
+import Hard_Mode.init.ItemInit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
@@ -76,5 +77,13 @@ public class InventoryDirtyBag extends InventoryBasic{
 			ItemStack stack = new ItemStack(slotTag);
 			setInventorySlotContents(index, stack);
 		}
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		if(stack.getItem() == ItemInit.DIRTY_BAG) {
+			return false;
+		}
+		return true;
 	}
 }
